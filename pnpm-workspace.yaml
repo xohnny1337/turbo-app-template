@@ -8,8 +8,9 @@ onlyBuiltDependencies:
   - unrs-resolver
 
 catalog:
-  typescript: 5.9.3
-  eslint: ^9.39.1
+  # eslint stays on 9.x until eslint-plugin-react supports eslint 10
+  typescript: ~6.0.3
+  eslint: ^9.39.5
   react: 19.2.3
   react-dom: 19.2.3
   "@types/react": ~19.2.2

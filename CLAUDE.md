@@ -15,6 +15,10 @@ Turborepo + pnpm (with `catalog:` versions in pnpm-workspace.yaml).
 - Mobile builds: `pnpm --filter mobile ios` (dev), `ios:prod` / `android:prod` (bump build number + EAS production build)
 - Firestore rules live in `firestore.rules` at root: `npx firebase-tools deploy --only firestore`
 
+## Subscriptions
+
+RevenueCat: mobile uses `contexts/subscription-context.tsx` (`useSubscription()` → `isPro`, `presentPaywall()`) over `services/revenuecat.ts`; users are identified by Firebase UID. The web webhook (`apps/web/app/api/webhooks/revenuecat/route.ts`, auth via REVENUECAT_WEBHOOK_AUTH_KEY) mirrors subscription state to `users/{uid}.subscription` — use that for server-side gating, the SDK's entitlements for client-side.
+
 ## Conventions
 
 - Mobile ↔ web API calls go through `apps/mobile/lib/api-url.ts`; auth via Firebase ID token bearer headers, verified in web API routes with `verifyFirebaseToken`.

@@ -88,6 +88,28 @@ OTA updates (optional): `expo-updates` is installed and eas.json maps each build
 profile to a channel — run `cd apps/mobile && npx eas-cli update:configure` once
 to set `updates.url`, then `npx eas-cli update --channel production` to push.
 
+## Subscriptions (RevenueCat)
+
+RevenueCat is wired end to end but dormant until keys exist:
+
+1. Create a project at <https://app.revenuecat.com>, add your iOS/Android apps
+   (same bundle id as `apps/mobile/app.json`), create products, an entitlement
+   (e.g. `pro`) and a paywall on the default offering.
+2. Put the public SDK keys in `apps/mobile/.env` (see `.env.example`) — or as
+   EAS environment variables for builds. Optionally set a test key in
+   `app.json` under `extra.revenuecat.testKey` for dev builds.
+3. Mobile: `useSubscription()` exposes `isPro`, `presentPaywall()`,
+   `restorePurchases()` (Settings tab has the demo UI). The SDK identifies
+   users by Firebase UID.
+4. Server sync: add a webhook in the RevenueCat dashboard pointing to
+   `https://<your-domain>/api/webhooks/revenuecat` with Authorization header
+   `Bearer <REVENUECAT_WEBHOOK_AUTH_KEY>` (same value in `apps/web/.env`).
+   Events land in Firestore at `users/{uid}.subscription`, so API routes can
+   gate features server-side without calling RevenueCat.
+
+Real purchases need a development build (not Expo Go) — in Expo Go the SDK
+runs in preview mode with mock APIs.
+
 ## How the pieces talk
 
 - Mobile signs in anonymously (`contexts/auth-context.tsx`) and reads/writes

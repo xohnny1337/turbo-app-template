@@ -5,6 +5,7 @@ import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { useAuth } from "@/contexts/auth-context";
+import { useSubscription } from "@/contexts/subscription-context";
 import { getApiUrl } from "@/lib/api-url";
 import tw from "@/lib/tw";
 
@@ -15,6 +16,12 @@ import tw from "@/lib/tw";
  */
 export default function SettingsScreen() {
   const { user } = useAuth();
+  const {
+    isPro,
+    loading: subscriptionLoading,
+    presentPaywall,
+    restorePurchases,
+  } = useSubscription();
   const [apiStatus, setApiStatus] = useState<string | null>(null);
 
   const checkApi = async () => {
@@ -69,6 +76,24 @@ export default function SettingsScreen() {
             {Application.nativeApplicationVersion ?? "dev"} (
             {Application.nativeBuildVersion ?? "-"})
           </Text>
+        </View>
+
+        <View style={tw`mb-4 rounded-2xl bg-surface p-4`}>
+          <Text style={tw`text-xs uppercase text-muted`}>Subscription</Text>
+          <Text style={tw`mb-3 text-content`}>
+            {subscriptionLoading ? "Loading…" : isPro ? "Pro ✨" : "Free"}
+          </Text>
+          {!isPro && (
+            <Pressable
+              onPress={presentPaywall}
+              style={tw`mb-2 items-center rounded-full bg-primary px-6 py-3`}
+            >
+              <Text style={tw`font-semibold text-white`}>Go Pro</Text>
+            </Pressable>
+          )}
+          <Pressable onPress={restorePurchases} style={tw`items-center py-1`}>
+            <Text style={tw`text-sm text-muted`}>Restore purchases</Text>
+          </Pressable>
         </View>
 
         <Pressable

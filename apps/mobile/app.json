@@ -63,7 +63,10 @@
       "reactCompiler": true
     },
     "extra": {
-      "router": {}
+      "router": {},
+      "revenuecat": {
+        "testKey": ""
+      }
     }
   }
 }
