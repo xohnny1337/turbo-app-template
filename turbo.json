@@ -1,0 +1,40 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "ui": "tui",
+  "globalEnv": [
+    "NODE_ENV",
+    "AUTH_FIREBASE_PROJECT_ID",
+    "AUTH_FIREBASE_CLIENT_EMAIL",
+    "FIREBASE_PRIVATE_KEY",
+    "EXPO_PUBLIC_API_URL"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "ios": {
+      "cache": false
+    },
+    "ios:prod": {
+      "cache": false
+    },
+    "android": {
+      "cache": false
+    },
+    "android:prod": {
+      "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    }
+  }
+}
