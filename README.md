@@ -22,7 +22,7 @@
 > Then follow **From zero to running** below — it's the same checklist the script prints.
 <!-- template:end -->
 
-**Stack:** Turborepo + pnpm · Expo SDK 57 (expo-router, twrnc, React Native Firebase) · Next.js 16 (Tailwind v4, firebase-admin) · Firestore · RevenueCat subscriptions · EAS builds.
+**Stack:** Turborepo + pnpm · Expo SDK 58 (expo-router, twrnc, React Native Firebase) · Next.js 16 (Tailwind v4, firebase-admin) · Firestore · RevenueCat subscriptions · EAS builds.
 
 - `apps/mobile` — the iOS/Android app
 - `apps/web` — the web app + API backend for mobile (dev port **3333**)
@@ -154,4 +154,4 @@ OTA updates (optional): `cd apps/mobile && npx eas-cli update:configure` once, t
 | App won't open in Expo Go | Expected — native Firebase needs the dev client (step 4) |
 | "RNFBAppModule not found" after adding the dev client | Uninstall the old app from the simulator/device and install the fresh EAS build |
 | Paywall does nothing | RevenueCat keys not set (step 5.3) — check the console for `[RevenueCat]` warnings |
-| pnpm complains about versions | Just use `corepack enable`; the repo's `packageManager` field handles the rest |
+| pnpm complains about versions / "Failed to switch pnpm to v12" | The repo needs pnpm 12. Use `corepack enable`, or upgrade a standalone pnpm with `npx pnpm@12 self-update` and make sure `$PNPM_HOME/bin` is on your `PATH` |

@@ -2,17 +2,22 @@ packages:
   - "apps/*"
   - "packages/*"
 
-onlyBuiltDependencies:
-  - "@firebase/util"
-  - protobufjs
-  - unrs-resolver
-
 catalog:
   # eslint stays on 9.x until eslint-plugin-react supports eslint 10
   typescript: ~6.0.3
   eslint: ^9.39.5
-  react: 19.2.3
-  react-dom: 19.2.3
-  "@types/react": ~19.2.2
-  "@types/react-dom": ~19.2.1
-  zod: ^4.6.5
+  react: 19.3.0
+  react-dom: 19.3.0
+  "@types/react": ~19.3.0
+  "@types/react-dom": ~19.3.0
+  zod: ^4.6.7
+
+minimumReleaseAgeExclude:
+  - expo@58.0.25
+  - expo-dev-client@58.0.20
+  - expo-dev-launcher@58.0.20
+
+allowBuilds:
+  '@firebase/util': true
+  protobufjs: true
+  unrs-resolver: true
